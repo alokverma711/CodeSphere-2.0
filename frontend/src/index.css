@@ -1,0 +1,120 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+:root {
+  /* Color Palette - Premium Slate-Light / White Theme */
+  --bg-primary: #f8fafc;
+  /* Slate-50 off-white for main backgrounds */
+  --bg-secondary: #ffffff;
+  /* Pure White for secondary panels and sidebar panels */
+  --bg-tertiary: #f1f5f9;
+  /* Slate-100 for inputs, code view headers, details */
+  --bg-card: rgba(255, 255, 255, 0.75);
+  /* Translucent pure white cards for glassmorphism */
+
+  --border-color: rgba(15, 23, 42, 0.08);
+  /* Sophisticated subtle dark border */
+  --border-hover: rgba(15, 23, 42, 0.16);
+  --border-glow: rgba(99, 102, 241, 0.4);
+  /* Indigo glow remains clean */
+
+  /* Text Colors */
+  --text-primary: #0f172a;
+  /* Slate-900 for high-fidelity light readability */
+  --text-secondary: #475569;
+  /* Slate-600 for descriptions/labels */
+  --text-muted: #64748b;
+  /* Slate-500 for helper text */
+
+  /* Glowing Neon Accents - Deepened slightly for strong contrast on white */
+  --accent-primary: #4f46e5;
+  /* Indigo (slightly deeper) */
+  --accent-secondary: #0891b2;
+  /* Cyan (slightly deeper) */
+  --accent-success: #059669;
+  /* Emerald (slightly deeper) */
+  --accent-warning: #d97706;
+  /* Amber (slightly deeper) */
+  --accent-danger: #dc2626;
+  /* Rose/Red (slightly deeper) */
+  --accent-purple: #7c3aed;
+  /* Violet (slightly deeper) */
+  --accent-blue-green: #14b8a6;
+  /* Blue-green (Teal/Cyan) */
+
+  /* System Font Families */
+  --font-sans: 'Inter', -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  /* Transitions */
+  --transition-fast: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-normal: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Home (Landing Page) Color Tokens */
+  --bg-home: #f8fafc;
+  --bg-home-gradient: radial-gradient(circle at 50% 30%, rgba(99, 102, 241, 0.08), transparent 60%),
+    radial-gradient(circle at 85% 80%, rgba(6, 182, 212, 0.05), transparent 50%),
+    #f8fafc;
+  --home-grid-line: rgba(15, 23, 42, 0.015);
+  --home-spotlight: radial-gradient(circle at 50% -20%, rgba(139, 92, 246, 0.07) 0%, transparent 55%),
+    radial-gradient(ellipse at center, transparent 20%, #f8fafc 100%);
+  --home-shadow: 0 10px 40px rgba(15, 23, 42, 0.06), inset 0 1px 1px rgba(255, 255, 255, 0.8);
+  --home-focus-shadow: 0 0 30px rgba(99, 102, 241, 0.12), 0 12px 48px rgba(15, 23, 42, 0.08), inset 0 1px 1px rgba(255, 255, 255, 0.9);
+
+  /* Header Color Tokens */
+  --bg-header: rgba(255, 255, 255, 0.8);
+  --header-shadow: 0 4px 20px rgba(15, 23, 42, 0.05);
+  --bg-header-search: rgba(15, 23, 42, 0.04);
+  --bg-header-search-focus: rgba(15, 23, 42, 0.06);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-sans);
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  height: 100vh;
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#root {
+  height: 100vh;
+}
+
+/* Global scrollbar rules for premium thin look */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(15, 23, 42, 0.12);
+  border-radius: 999px;
+  transition: background var(--transition-fast);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(15, 23, 42, 0.24);
+}
+
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+/* Scrollbar rules for Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(15, 23, 42, 0.12) transparent;
+}

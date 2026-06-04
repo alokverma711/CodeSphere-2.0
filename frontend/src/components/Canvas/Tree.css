@@ -1,0 +1,353 @@
+/* ==========================================================================
+   Premium Glassmorphism Tree Mind-Map Styling
+   ========================================================================== */
+
+/* Base card shared by folder and file nodes */
+.tree-node-card {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 14px;
+    font-family: var(--font-sans);
+    font-size: 0.76rem;
+    color: var(--text-secondary);
+    white-space: nowrap;
+    min-width: 140px;
+    max-width: 240px;
+    position: relative;
+    cursor: pointer;
+    box-sizing: border-box;
+
+    /* Realistic Thick Glass Refraction / specularity */
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.16) 0%, rgba(255, 255, 255, 0.03) 40%, rgba(0, 0, 0, 0.18) 75%, rgba(255, 255, 255, 0.12) 100%), rgba(15, 23, 42, 0.45) !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    border: 1px solid rgba(255, 255, 255, 0.22) !important;
+    
+    /* 3D molded glossy edge shine outline shadows */
+    box-shadow: 
+        0 12px 28px rgba(0, 0, 0, 0.35),
+        inset 0 2px 2px rgba(255, 255, 255, 0.45),    /* Sharp top reflect shine */
+        inset 0 -2px 2px rgba(0, 0, 0, 0.25),         /* Bottom reflect shadow */
+        inset 0 6px 12px rgba(255, 255, 255, 0.15) !important; /* Soft volume sheen glow */
+    
+    /* Micro-interaction transition */
+    transition: 
+        transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1),
+        border-color 0.25s ease,
+        border-left-width 0.2s ease,
+        box-shadow 0.25s ease,
+        background-color 0.25s ease,
+        color 0.2s ease !important;
+}
+
+/* Hover Lift Animation */
+.tree-node-card:hover {
+    transform: translateY(-2.5px) scale(1.03);
+    color: var(--text-primary);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.22) 0%, rgba(255, 255, 255, 0.05) 40%, rgba(0, 0, 0, 0.1) 75%, rgba(255, 255, 255, 0.18) 100%), rgba(15, 23, 42, 0.55) !important;
+    box-shadow: 
+        0 16px 36px rgba(0, 0, 0, 0.45),
+        inset 0 3px 3px rgba(255, 255, 255, 0.55),
+        inset 0 -2.5px 2.5px rgba(0, 0, 0, 0.2),
+        inset 0 8px 16px rgba(255, 255, 255, 0.22) !important;
+}
+
+/* ==========================================================================
+   Node Category Styles (Folders & Files)
+   ========================================================================== */
+
+/* Folder Node: rounded rect, cyan/teal accent */
+.tree-node-folder {
+    border-radius: 12px !important;
+    border-left: 4px solid var(--accent-blue-green) !important; /* Glowing Teal */
+}
+
+.tree-node-folder:hover {
+    border-left-color: var(--accent-blue-green) !important;
+    border-color: rgba(45, 212, 191, 0.35) !important;
+    box-shadow: 
+        0 12px 28px -4px rgba(45, 212, 191, 0.25), 
+        inset 0 1px 0px rgba(255, 255, 255, 0.45) !important;
+}
+
+/* File Node: rounded capsule, violet accent */
+.tree-node-file {
+    border-radius: 20px !important;
+    border-left: 4px solid var(--accent-primary) !important; /* Glowing Violet */
+    padding-left: 14px;
+}
+
+.tree-node-file:hover {
+    border-left-color: var(--accent-primary) !important;
+    border-color: rgba(192, 132, 252, 0.35) !important;
+    box-shadow: 
+        0 12px 28px -4px rgba(192, 132, 252, 0.25), 
+        inset 0 1px 0px rgba(255, 255, 255, 0.45) !important;
+}
+
+/* ==========================================================================
+   Node Internal Elements
+   ========================================================================== */
+
+/* Chevron Expand/Collapse Toggle with micro-interaction */
+.tree-node-chevron-toggle {
+    background: transparent;
+    border: none;
+    outline: none;
+    padding: 3px 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: var(--text-muted);
+    border-radius: 6px;
+    margin-left: -5px;
+    margin-right: 1px;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.tree-node-chevron-toggle:hover {
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--text-primary);
+    transform: scale(1.1);
+}
+
+.tree-node-chevron-toggle svg {
+    transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Rotating effect for expansion states */
+.tree-node-chevron-toggle.collapsed svg {
+    transform: rotate(0deg);
+}
+
+.tree-node-chevron-toggle.expanded svg {
+    transform: rotate(0deg); /* Rendered down svg, so no rotation needed, but we style transition */
+}
+
+/* Node Icons */
+.tree-node-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    flex-shrink: 0;
+    line-height: 1;
+    transition: transform 0.2s ease;
+}
+
+.tree-node-card:hover .tree-node-icon {
+    transform: scale(1.1);
+}
+
+/* Node Labels */
+.tree-node-name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: var(--text-primary);
+    font-weight: 500;
+    font-size: 0.74rem;
+}
+
+/* File Count Badge */
+.tree-node-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.62rem;
+    font-weight: 600;
+    color: var(--accent-blue-green);
+    background: rgba(45, 212, 191, 0.12);
+    border: 1px solid rgba(45, 212, 191, 0.25);
+    padding: 1px 6px;
+    border-radius: 99px;
+    margin-left: auto;
+    font-family: var(--font-sans);
+    min-width: 18px;
+    height: 16px;
+    box-sizing: border-box;
+    transition: all 0.2s ease;
+}
+
+.tree-node-card:hover .tree-node-badge {
+    background: rgba(45, 212, 191, 0.2);
+    border-color: rgba(45, 212, 191, 0.4);
+    transform: scale(1.05);
+}
+
+/* ==========================================================================
+   Active Path Highlight System
+   ========================================================================== */
+
+/* Active Path Nodes (Root to Selected File) */
+.tree-node-card.active-path {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.05) 50%, rgba(168, 85, 247, 0.12) 100%), rgba(15, 23, 42, 0.5) !important;
+    border-color: var(--accent-primary) !important;
+    box-shadow: 
+        0 0 24px rgba(168, 85, 247, 0.35), 
+        inset 0 1px 0px rgba(255, 255, 255, 0.45),
+        inset 1px 0px 0px rgba(255, 255, 255, 0.15) !important;
+}
+
+.active-path.tree-node-folder {
+    border-left: 4px solid var(--accent-primary) !important;
+}
+
+.active-path.tree-node-file {
+    border-left: 4px solid var(--accent-primary) !important;
+}
+
+.tree-node-card.active-path .tree-node-name {
+    font-weight: 600;
+    color: #ffffff;
+    text-shadow: 0 0 8px rgba(168, 85, 247, 0.5);
+}
+
+/* Active Path Connectors (Marching Ants Flow Animation) */
+.active-path-edge .react-flow__edge-path {
+    stroke-dasharray: 6;
+    stroke: var(--accent-primary) !important; /* Glowing Violet */
+    stroke-width: 3px !important;
+    filter: drop-shadow(0 0 8px rgba(168, 85, 247, 0.6));
+    animation: flow-dash 1s linear infinite;
+    stroke-linecap: round;
+}
+
+@keyframes flow-dash {
+    to {
+        stroke-dashoffset: -12;
+    }
+}
+
+/* Inactive / Default Connectors */
+.normal-path-edge .react-flow__edge-path {
+    stroke: rgba(255, 255, 255, 0.45) !important; /* Bright silver/white line */
+    stroke-width: 2px !important;
+    filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.2));
+}
+
+/* ==========================================================================
+   ReactFlow Default Overrides
+   ========================================================================== */
+
+.react-flow__node {
+    border-radius: 12px !important;
+    padding: 0 !important;
+    border: none !important;
+    background: transparent !important;
+    box-shadow: none !important;
+}
+
+/* Modern Minimalist Handles */
+.tree-handle {
+    width: 5px !important;
+    height: 5px !important;
+    background: #ffffff !important;
+    border: 1.5px solid var(--accent-primary) !important;
+    border-radius: 50% !important;
+    transition: transform 0.2s ease, background-color 0.2s ease !important;
+}
+
+.tree-node-card:hover .tree-handle {
+    transform: scale(1.3);
+    background: var(--accent-primary) !important;
+}
+
+/* Loading state */
+.tree-state {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    background: var(--bg-primary);
+}
+
+.tree-spinner {
+    width: 36px;
+    height: 36px;
+    border: 3px solid rgba(99, 102, 241, 0.1);
+    border-top-color: var(--accent-primary);
+    border-radius: 50%;
+    animation: spin 0.75s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* ==========================================================================
+   Floating Custom Controls Panel (Bottom-Left)
+   ========================================================================== */
+
+.mindmap-controls-panel {
+    position: absolute;
+    left: 20px;
+    bottom: 20px;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 5px;
+    background: rgba(15, 23, 42, 0.45) !important;
+    backdrop-filter: blur(20px) saturate(180%) !important;
+    -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+    border-radius: 12px;
+    box-shadow: 
+        0 10px 30px -10px rgba(0, 0, 0, 0.5), 
+        inset 0 1px 0px rgba(255, 255, 255, 0.25) !important;
+    transition: all 0.2s ease;
+}
+
+.mindmap-controls-panel:hover {
+    border-color: rgba(255, 255, 255, 0.25) !important;
+    background: rgba(15, 23, 42, 0.55) !important;
+    box-shadow: 
+        0 12px 36px -8px rgba(0, 0, 0, 0.6), 
+        inset 0 1px 0px rgba(255, 255, 255, 0.3) !important;
+}
+
+.mindmap-btn {
+    border: none;
+    background: transparent;
+    width: 26px;
+    height: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-secondary);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.18s ease;
+    outline: none;
+}
+
+.mindmap-btn:hover {
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--accent-primary);
+    transform: translateY(-1px);
+}
+
+.mindmap-btn:active {
+    transform: translateY(0);
+    background: rgba(99, 102, 241, 0.14);
+}
+
+.mindmap-btn svg {
+    transition: transform 0.18s ease;
+}
+
+.mindmap-btn:hover svg {
+    transform: scale(1.05);
+}
+
+.mindmap-btn-divider {
+    width: 1px;
+    height: 14px;
+    background: rgba(255, 255, 255, 0.12);
+    margin: 0 4px;
+}

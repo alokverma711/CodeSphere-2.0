@@ -1,0 +1,74 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+enum SummaryRunStatus {
+  PENDING
+  IN_PROGRESS
+  COMPLETED
+  FAILED
+}
+
+model SummaryRun {
+  id             String           @id @default(cuid())
+  username       String
+  repo           String
+  branch         String
+  commitHash     String?
+  status         SummaryRunStatus @default(PENDING)
+  startedAt      DateTime         @default(now())
+  completedAt    DateTime?
+  errorMessage   String?
+  metadata       Json?
+  fileSummaries  FileSummary[]
+  folderSummaries FolderSummary[]
+  repoSummary    RepoSummary?
+
+  @@index([username, repo, branch, startedAt(sort: Desc)])
+  @@index([username, repo, branch, commitHash])
+  @@index([status, startedAt(sort: Desc)])
+}
+
+model FileSummary {
+  id        String    @id @default(cuid())
+  runId     String
+  path      String
+  name      String
+  language  String?
+  role      String?
+  summary   String    @db.Text
+  createdAt DateTime  @default(now())
+  run       SummaryRun @relation(fields: [runId], references: [id], onDelete: Cascade)
+
+  @@unique([runId, path])
+  @@index([path])
+}
+
+model FolderSummary {
+  id        String    @id @default(cuid())
+  runId     String
+  path      String
+  name      String
+  depth     Int
+  fileCount Int
+  summary   String    @db.Text
+  createdAt DateTime  @default(now())
+  run       SummaryRun @relation(fields: [runId], references: [id], onDelete: Cascade)
+
+  @@unique([runId, path])
+  @@index([path])
+}
+
+model RepoSummary {
+  id        String    @id @default(cuid())
+  runId     String    @unique
+  summary   String    @db.Text
+  createdAt DateTime  @default(now())
+  run       SummaryRun @relation(fields: [runId], references: [id], onDelete: Cascade)
+}
